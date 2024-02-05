@@ -1,22 +1,25 @@
 package com.example.carpark.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name="cars")
+@Entity
+@Table(name="cars")
 public class CarsModel {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name="production_date")
-    @NotEmpty(message="Поле 'Дата выпуска' не может быть пустым")
-    @Size(min=8, max=10)
-    private Date productionDate;
+    @NotEmpty(message="Поле 'Год выпуска' не может быть пустым")
+    @Size(min=4, max=4)
+    private String productionDate;
     @NotEmpty(message="Поле 'Модель' не может быть пустым")
     @Column(name="model")
     @Size(max=50)
@@ -27,16 +30,16 @@ public class CarsModel {
     private String stateNumber;
     @NotEmpty(message="Поле 'Дата постановки на учёт' не может быть пустым")
     @Column(name="register_date")
-    @Size(min=8, max=10)
+//    @Size(min=8, max=8)
     private String registerDate;
-    @OneToMany(mappedBy = "tech_inspections", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "carsModel", fetch = FetchType.EAGER)
     private List<TechInspectionsModel> techInspectionsModels;
-    private int carOlder;
-    private int carYounger;
-    private int yearResult;
-    int carYear = productionDate.getYear();
+//    private int carOlder;
+//    private int carYounger;
+//    private int yearResult;
+//    int carYear;
 
-    public CarsModel(int id, Date productionDate, String model, String stateNumber, String registerDate, List<TechInspectionsModel> techInspectionsModels, int carsOlder, int carYear) {
+    public CarsModel(int id, String productionDate, String model, String stateNumber, String registerDate, List<TechInspectionsModel> techInspectionsModels) {
         this.id = id;
         this.productionDate = productionDate;
         this.model = model;
@@ -46,7 +49,12 @@ public class CarsModel {
     }
 
     public CarsModel() {
+
     }
+
+//    public CarsModel() {
+//        carYear = productionDate.getYear();
+//    }
 
     public int getId() {
         return id;
@@ -56,11 +64,11 @@ public class CarsModel {
         this.id = id;
     }
 
-    public Date getProductionDate() {
+    public String getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(Date productionDate) {
+    public void setProductionDate(String productionDate) {
         this.productionDate = productionDate;
     }
 
@@ -95,16 +103,22 @@ public class CarsModel {
     public void setTechInspectionsModels(List<TechInspectionsModel> techInspectionsModels) {
         this.techInspectionsModels = techInspectionsModels;
     }
-    public void CarsYear(int carYear) {
-        int nowYear = Year.now().getValue();
-        yearResult=nowYear-carYear;
-        if (yearResult > 3) {
-            carOlder=carOlder++;
-            }
-        else {
-            carYounger=carYounger++;
-        }
 
+    @Override
+    public String toString() {
+        return stateNumber;
     }
+
+    //    public void CarsYear(int carYear) {
+//        int nowYear = Year.now().getValue();
+//        yearResult=nowYear-carYear;
+//        if (yearResult > 3) {
+//            carOlder=carOlder++;
+//            }
+//        else {
+//            carYounger=carYounger++;
+//        }
+//
+//    }
 
 }

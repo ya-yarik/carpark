@@ -1,0 +1,677 @@
+header {
+    border: 5px solid #0caa0c;
+    height: 5%;
+    border-radius: 50px;
+    text-align: center;
+    color: #5a5a5a; /* Цвет текста */
+    background: rgb(211, 128, 193); /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    transition: 1s linear; /* Время изменения */
+    opacity: 0.5;
+    width: 100%;
+}
+
+header:hover {
+    color: rgb(221, 14, 14); /* Цвет текста */
+    background: #f66d52; /* Цвет фона */
+    opacity: 1;
+}
+
+header a {
+    font-size: 25px;
+    font-weight: bold;
+    border: 3px solid black;
+    border-radius: 50px;
+    padding: 5px;
+}
+
+.underline-one {
+    color: black;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none; /* Убрал подчёркивание */
+}
+
+.underline-one:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0;
+    height: 3px; /* Высота линии */
+    background-color: black; /* Цвет подчёркивания при исчезании линии*/
+    transition: width 0.5s; /* Время эффекта */
+}
+
+.underline-one:hover:after {
+    content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px; /* Высота линии */
+    background-color: red; /* Цвет подчеркивания при появлении линии*/
+    transition: width 0.5s; /* Время эффекта */
+}
+
+body {
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+    color:white;
+    opacity: 0.5;
+}
+
+table {
+    width:100%;
+}
+
+td[id="mainpage"]{
+    width:60%;
+    position: absolute;
+}
+
+td[id="searchBlock"]{
+    width:40%;
+    position: sticky;
+}
+
+table {
+    width:100%;
+}
+
+td[id="mainpageProfile"]{
+    width:60%;
+    position: absolute;
+}
+
+td[id="searchBlockProfile"]{
+    width:40%;
+}
+
+#carList {
+    text-align: left;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: 'Arial';
+    padding: 5px;
+    transition: 1s linear;
+    background: wheat;
+    opacity:0.3;
+    border: 10px solid wheat;
+}
+
+#carList:hover {
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    font-size: 24px;
+    border: 10px solid blue;
+}
+
+form {
+    text-align: left;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: 'Arial';
+    /*    padding-bottom: 5px;*/
+    transition: 1s linear;
+    padding-left: 4%;
+    padding-top: 4%;
+}
+
+form:hover {
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    /*    font-size: 23.5px;*/
+    font-size: 20px;
+    border: 10px solid blue;
+    /*    padding-bottom: 5px;*/
+    padding-left: 4%;
+    padding-top: 4%;
+    padding-right: 4%;
+}
+
+form[class="searchForm"] {
+    padding-right: 4%;
+}
+
+
+div[class="staticForm"] {
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    /*    font-size: 23.5px;*/
+    font-size: 20px;
+    border: 10px solid blue;
+    /*    padding-bottom: 5px;*/
+}
+
+.staticFormFixed {
+    position: sticky;
+    top: 0;
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    /*    font-size: 23.5px;*/
+    font-size: 20px;
+    border: 10px solid blue;
+    padding-right: 4%;
+}
+
+form[class="staticForm"] {
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    /*    font-size: 23.5px;*/
+    font-size: 20px;
+    border: 10px solid blue;
+    /*    padding-bottom: 5px;*/
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+div[class="overloginform"] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 0;
+}
+
+div[class="overloginform"]::before {
+     height: 100%;
+     display: inline-block;
+     vertical-align: middle;
+     content: '';
+ }
+
+form[class="loginform"] {
+    align-content: center;
+    width:50%;
+    color: black; /* Цвет текста */
+    background: wheat; /* Цвет фона */
+    opacity: 0.8;
+    font-family: 'Times New Roman';
+    transition: 1s linear;
+    /*    font-size: 23.5px;*/
+    font-size: 20px;
+    border: 10px solid blue;
+    /*    padding-bottom: 5px;*/
+    display: inline-block;
+    white-space: normal;
+    vertical-align: middle;
+    text-align: left;
+    padding-right: 4%;
+}
+
+select[class="field"] {
+    font-size: 20px;
+    height: 36px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    border-radius: 3%;
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+select[class="field"]:hover {
+    background: white;
+}
+
+select[id="selectGoodProvider"] {
+    font-size: 20px;
+    height: 36px;
+    width: 100%;
+    align-items: center;
+    text-align: left;
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+select[id="selectGoodProvider"]:hover {
+    background: white;
+    text-align: left;
+}
+
+select[id="selectGoodProvider"]:invalid {
+    content: '✖';
+    background: rgb(255, 0, 0);
+}
+
+select[id="sortUser"] {
+    font-size: 20px;
+    height: 36px;
+    width: 98%;
+    align-items: center;
+    text-align: left;
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+select[id="sortUser"]:hover {
+    background: white;
+    text-align: left;
+}
+
+select[id="sortOrder"] {
+    font-size: 20px;
+    height: 36px;
+    width: 100%;
+    align-items: center;
+    text-align: left;
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+select[id="sortOrder"]:hover {
+    background: white;
+    text-align: left;
+}
+
+button[class="number-plus"] {
+    border-radius: 100%;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+button[class="number-minus"] {
+    border-radius: 100%;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+button[class="number-minus"]:hover {
+    border-radius: 100%;
+    background: rgb(140, 207, 166);
+    width: 35px;
+    height: 35px;
+}
+
+button[class="number-plus"]:hover {
+    border-radius: 100%;
+    background: rgb(140, 207, 166);
+    width: 35px;
+    height: 35px;
+}
+
+input[type="number"] {
+    font-size: 20px;
+    height: 36px;
+    width: 99.5%;
+    align-items: center;
+    text-align: left;
+    /*    border-radius: 10%;*/
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+input[type="number"]:hover {
+    background: white;
+    text-align: left;
+    text-after-overflow: 15px;
+}
+
+input[type="number"]:invalid {
+    content: '✖';
+    background: rgb(255, 0, 0);
+}
+
+input[type="date"]{
+    font-size: 20px;
+    height: 36px;
+    width: 99.5%;
+    align-items: center;
+    text-align: left;
+    /*    border-radius: 10%;*/
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+input[type="date"]:hover{
+    background: white;
+    text-align: left;
+}
+
+
+input[type="date"]:invalid{
+    content: '✖';
+    background: rgba(255, 0, 115, 0.65);
+}
+
+input[type="text"]{
+    font-size: 20px;
+    height: 36px;
+    width: 99.5%;
+    align-items: center;
+    text-align: left;
+    /*    border-radius: 10%;*/
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+input[type="text"]:hover{
+    background: white;
+    text-align: left;
+}
+
+
+input[type="text"]:invalid{
+    content: '✖';
+    background: rgba(255, 0, 115, 0.65);
+}
+
+input[type="password"]{
+    font-size: 20px;
+    height: 36px;
+    width: 99.5%;
+    align-items: center;
+    text-align: left;
+    /*    border-radius: 10%;*/
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+input[type="password"]:hover{
+    background: white;
+    text-align: left;
+}
+
+input[type="password"]:invalid{
+    content: '✖';
+    background: rgb(255, 0, 0);
+}
+
+input[type="email"]{
+    font-size: 20px;
+    height: 36px;
+    width: 99.5%;
+    align-items: center;
+    text-align: left;
+    /*    border-radius: 10%;*/
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+input[type="email"]:hover {
+    background: white;
+    text-align: left;
+}
+
+input[type="email"]:invalid {
+    content: '✖';
+    background: rgb(255, 0, 0);
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgb(195, 17, 17);
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+input[type="radio"]:hover {
+    width: 26px;
+    height: 26px;
+}
+
+input[type="radio"]:checked {
+    border: 6px solid black;
+}
+
+input[type="radio"]:active {
+    background-color: white;
+    color: black;
+    outline: 1px solid black;
+}
+
+select[id="selectvalue"] {
+    font-size: 20px;
+    height: 36px;
+    width: 500px;
+    align-items: center;
+    text-align: left;
+    border-radius: 3%;
+    background: rgb(140, 207, 166);
+    transition: 1s linear;
+}
+
+select[id="selectvalue"]:hover {
+    background: white;
+}
+
+#level {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    border-radius: 50px;
+    background: #6a6565;
+    outline: blueviolet;
+}
+
+#level::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-image: url("/static/logo/logo.png");
+    cursor: pointer;
+}
+
+#level::-moz-range-thumb {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-image: url("/static/logo/logo.png");
+    cursor: pointer;
+}
+
+#level:hover {
+    background: #000000;
+}
+
+output[type="number"] {
+    height: 30px;
+    width: 15px;
+    background: white;
+    color: red;
+}
+.keysblock{
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    font-weight: normal;
+    text-decoration: none;
+    text-underline: none;
+    width:auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.key{
+    border: 5px solid #0caa0c;
+    border-radius: 50px;
+    text-align: center;
+    color: black; /* Цвет текста */
+    background: rgb(211, 128, 193); /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    transition: 1s linear; /* Время изменения */
+    text-underline: none;
+    align-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-family: "Arial";
+    cursor: pointer;
+    width:auto;
+    height: auto;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.keygoout{
+    border: 3px solid black;
+    border-radius: 50px;
+    text-align: center;
+    color: black; /* Цвет текста */
+    background: red; /* Цвет фона */
+    padding: 5px; /* Поля вокруг текста */
+    transition: 1s linear; /* Время изменения */
+    text-underline: none;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
+    width:auto;
+    height: auto;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.orders{
+    border: 3px solid black;
+    border-radius: 50px;
+    text-align: center;
+    color: black; /* Цвет текста */
+    background: green; /* Цвет фона */
+    padding: 5px; /* Поля вокруг текста */
+    transition: 1s linear; /* Время изменения */
+    text-underline: none;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
+    width:auto;
+    height: auto;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.link {
+    text-decoration: none;
+    border: 5px solid #0caa0c;
+    border-radius: 50px;
+    text-align: center;
+    color: black; /* Цвет текста */
+    background: rgb(211, 128, 193); /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    transition: 1s linear; /* Время изменения */
+    text-underline: none;
+    align-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-family: "Arial";
+    width:50%;
+    height: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.headerlink {
+    text-decoration: none;
+    border-radius: 50px;
+    text-align: center;
+    color: black; /* Цвет текста */
+}
+
+.incorrectFieldForm{
+    font-size: 15px;
+    height: 36px;
+    width: 98.2%;
+    align-items: center;
+    text-align: left;
+    margin-left: 0.2%;
+    /*border: 1px solid fuchsia;*/
+}
+
+.dropbtn {
+    background-color: #3498DB;
+    /*color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;*/
+    color: black;
+    cursor: pointer;
+    border-radius: 50px;
+    height: 43px;
+    border: 3px solid black;
+    font-family: Times New Roman;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+    color: gold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border-radius: 50px;
+    background-color: #2980B9;
+}
+
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:focus {background-color: #ddd;}
+
+.show {display: block;}
+
+.hr-vertical-gradient {
+    margin: 20px 0;
+    padding: 0;
+    height: 10px;
+    border: none;
+    background: linear-gradient(180deg, orange, blue);
+}

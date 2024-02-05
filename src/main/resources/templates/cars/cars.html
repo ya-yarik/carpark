@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/logo/logo.png" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <title>Автопарк</title>
+</head>
+<body>
+<header>
+
+    <a class="key" th:href="@{/cars/add}">Добавить</a>
+    <a class="key" th:href="@{/cars/report}">Отчёт</a>
+    <a href="/techins" class="underline-one">Тех. осмотры</a>
+
+</header>
+<h1>Автомобили</h1>
+<div th:each="car : ${carForm}" id="carList">
+    <a th:href="@{/cars/{id}(id=${car.getId()})}" th:text="${car.getModel()+' '+car.getProductionDate()+' '+car.getStateNumber()+' '+car.getRegisterDate()}"></a>
+
+    <hr class="hr-vertical-gradient">
+    <div class="keysblock">
+        <a class="key" th:href="@{/cars/edit/{id}(id=${car.getId()})}">Редактировать</a>
+        <a class="key" th:href="@{/cars/delete/{id}(id=${car.getId()})}">Удалить</a>
+    </div>
+    <hr class="hr-vertical-gradient">
+
+</div>
+</body>
+</html>

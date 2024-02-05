@@ -14,7 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/techInspections")
+@RequestMapping("/techins")
 public class TechInspections {
 
     private final CarsServices carsServices;
@@ -33,20 +33,24 @@ public class TechInspections {
     @GetMapping("")
     public String allTechInspections(Model model) {
         model.addAttribute("techInsForm", techInspectionsServices.getAllTechInspections());
-        return "techIns";
+        return "techins/inspections";
     }
 
-    @GetMapping("techInspections/add")
+    @GetMapping("/add")
     public String addTechInspection(Model model) {
         model.addAttribute("techInsForm", new TechInspectionsModel());
-        return "addTechIns";
+        model.addAttribute("carsModel", carsRepository.findAll());
+        return "techins/add";
     }
 
-    @PostMapping("techInspections/add")
-    public String addTechInspection(@ModelAttribute("techInsForm") @Valid TechInspectionsModel techIns, BindingResult scan, Model model) {
+    @PostMapping("/add")
+    public String addTechInspection(@ModelAttribute("techInsForm") @Valid TechInspectionsModel techIns, BindingResult scan, Model model,  @RequestParam("carsModel") int carsModel) {
+        CarsModel carsModel1 = (CarsModel) carsRepository.findById(carsModel).orElseThrow();
+
 
         if (scan.hasErrors()) {
-            return "addTechIns";
+            model.addAttribute("carsModel", carsRepository.findAll());
+            return "techins/add";
         }
 
         for (TechInspectionsModel techInspectionsModel :
@@ -56,30 +60,33 @@ public class TechInspections {
 
                 ObjectError error = new ObjectError("error", "Данные техосмотра с таким номером карты уже существуют");
                 scan.addError(error);
-                return "addTechIns";
+                return "techins/add";
 
             }
         }
-        techInspectionsServices.addTechInspection(techIns);
-        return "redirect:/techInspections";
+        techInspectionsServices.addTechInspection(techIns, carsModel1);
+        return "redirect:/techins";
     }
 
-    @GetMapping("techInspections/{id}")
+    @GetMapping("/{id}")
     public String aboutTechInspection(Model model, @PathVariable("id") int id) {
         model.addAttribute("techInsForm", techInspectionsServices.getTechInspectionId(id));
-        return "selectTechIns";
+        return "techins/selection";
     }
 
-    @GetMapping("techInspections/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editTechInspection(Model model, @PathVariable("id") int id) {
         model.addAttribute("techInsForm", techInspectionsServices.getTechInspectionId(id));
-        return "editTechIns";
+        model.addAttribute("carsModel", carsRepository.findAll());
+        return "techins/edit";
     }
-    @PostMapping("techInspections/edit/{id}")
+
+    @PostMapping("/edit/{id}")
     public String editTechInspection(@ModelAttribute("techInsForm") @Valid TechInspectionsModel techIns, BindingResult scanEdit, @PathVariable("id") int id, Model model) {
 
         if (scanEdit.hasErrors()) {
-            return "editTechIns";
+            model.addAttribute("carsModel", carsRepository.findAll());
+            return "techins/edit";
         }
 
         for (TechInspectionsModel techInspectionsModel :
@@ -89,18 +96,18 @@ public class TechInspections {
 
                 ObjectError error = new ObjectError("error", "Машина с таким госномером уже существует");
                 scanEdit.addError(error);
-                return "editTechIns";
+                return "techins/edit";
 
             }
         }
         techInspectionsServices.editTechInspection(id, techIns);
-        return "redirect:/techInspections/" + id;
+        return "redirect:/techins/" + id;
     }
 
-    @GetMapping("techInspections/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteTechInspection(@PathVariable("id") int id) {
         techInspectionsServices.deleteTechInspection(id);
-        return "redirect:/techInspections";
+        return "redirect:/techins";
     }
 
 }
