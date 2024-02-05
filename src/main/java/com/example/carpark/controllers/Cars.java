@@ -36,26 +36,26 @@ public class Cars {
 
     @GetMapping("")
     public String mainPage() {
-        return "main";
+        return "index";
     }
 
     @GetMapping("/cars")
     public String allCars(Model model) {
         model.addAttribute("carForm", carsServices.getAllCars());
-        return "cars";
+        return "cars/cars";
     }
 
     @GetMapping("cars/add")
     public String addCar(Model model) {
         model.addAttribute("carForm", new CarsModel());
-        return "addCar";
+        return "cars/add";
     }
 
     @PostMapping("cars/add")
     public String addCar(@ModelAttribute("carForm") @Valid CarsModel car, BindingResult scan, Model model) {
 
         if (scan.hasErrors()) {
-            return "addCar";
+            return "cars/add";
         }
 
         for (CarsModel carsModel :
@@ -65,7 +65,7 @@ public class Cars {
 
                 ObjectError error = new ObjectError("error", "Машина с таким госномером уже существует");
                 scan.addError(error);
-                return "addCar";
+                return "cars/add";
 
             }
         }
@@ -77,19 +77,19 @@ public class Cars {
     @GetMapping("cars/{id}")
     public String aboutCar(Model model, @PathVariable("id") int id) {
         model.addAttribute("carForm", carsServices.getCarId(id));
-        return "selectCar";
+        return "cars/selection";
     }
 
     @GetMapping("cars/edit/{id}")
     public String editCar(Model model, @PathVariable("id") int id) {
         model.addAttribute("carForm", carsServices.getCarId(id));
-        return "editCar";
+        return "cars/edit";
     }
     @PostMapping("cars/edit/{id}")
     public String editCar(@ModelAttribute("carForm") @Valid CarsModel car, BindingResult scanEdit, @PathVariable("id") int id, Model model) {
 
         if (scanEdit.hasErrors()) {
-            return "editCar";
+            return "cars/edit";
         }
 
         for (CarsModel carsModel :
@@ -99,7 +99,7 @@ public class Cars {
 
                 ObjectError error = new ObjectError("error", "Машина с таким госномером уже существует");
                 scanEdit.addError(error);
-                return "addCar";
+                return "cars/edit";
 
             }
         }

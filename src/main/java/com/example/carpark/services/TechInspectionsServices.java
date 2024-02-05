@@ -21,7 +21,8 @@ public class TechInspectionsServices {
         return techInspectionsRepository.findAll();
     }
     @Transactional
-    public void addTechInspection(TechInspectionsModel techInspection){
+    public void addTechInspection(TechInspectionsModel techInspection, CarsModel carsModel){
+        techInspection.setCarsModel (carsModel);
         techInspectionsRepository.save(techInspection);
     }
 

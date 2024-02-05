@@ -1,6 +1,8 @@
 package com.example.carpark.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 
@@ -10,20 +12,20 @@ public class TechInspectionsModel {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "card_number")
-    @NotEmpty(message = "Поле 'Номер карты' не может быть пустым")
-    @Size(min = 15, max = 15)
-    private Date cardNumber;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    private CarsModel carsModel;
+    @Column(name = "card_number", length=15)
+    @NotNull(message = "Поле 'Номер карты' не может быть пустым")
+//    @Size(min = 15)
+    private String cardNumber;
     @NotEmpty(message = "Поле 'Дата техосмотра' не может быть пустым")
     @Column(name = "date_inspections")
-    @Size(min = 8, max = 10)
+//    @Size(min = 8, max = 10)
     private String dateInspections;
     @Column(name = "description")
     private String comments;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    private CarsModel carsModel;
 
-    public TechInspectionsModel(int id, Date cardNumber, String dateInspections, String comments, CarsModel carsModel) {
+    public TechInspectionsModel(int id, String cardNumber, String dateInspections, String comments, CarsModel carsModel) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.dateInspections = dateInspections;
@@ -42,13 +44,11 @@ public class TechInspectionsModel {
         this.id = id;
     }
 
-    public Date getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Date cardNumber) {
-        this.cardNumber = cardNumber;
-    }
+    public void setCardNumber(String cardNumber) {this.cardNumber = cardNumber; }
 
     public String getDateInspections() {
         return dateInspections;
@@ -72,5 +72,10 @@ public class TechInspectionsModel {
 
     public void setCarsModel(CarsModel carsModel) {
         this.carsModel = carsModel;
+    }
+
+    @Override
+    public String toString() {
+        return "Номер карты: "+cardNumber+".  Дата ТО: "+dateInspections;
     }
 }

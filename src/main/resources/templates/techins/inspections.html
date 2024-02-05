@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/logo/logo.png" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <title>Автопарк</title>
+</head>
+<body>
+<header>
+    <a class="key" th:href="@{/}">Главная</a>
+    <a class="key" th:href="@{/techins/add}">Добавить</a>
+     <a href="/cars" class="underline-one">Автомобили</a>
+</header>
+<h1>Тех. осмотры</h1>
+<div th:each="techInspection : ${techInsForm}" id="carList">
+    <a th:href="@{/techins/{id}(id=${techInspection.getId()})}" th:text="${techInspection.getCardNumber()+' '+techInspection.getDateInspections()+' '+techInspection.getComments()}"></a>
+
+    <hr class="hr-vertical-gradient">
+    <div class="keysblock">
+        <a class="key" th:href="@{/techins/add}">Добавить</a>
+        <a class="key" th:href="@{/techins/edit/{id}(id=${techInspection.getId()})}">Редактировать</a>
+        <a class="key" th:href="@{/techins/delete/{id}(id=${techInspection.getId()})}">Удалить</a>
+    </div>
+    <hr class="hr-vertical-gradient">
+
+</div>
+</body>
+</html>

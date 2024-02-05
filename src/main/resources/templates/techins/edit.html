@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/logo/logo.png" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <title>Автопарк</title>
+</head>
+<body>
+<header>
+    <a href="/" class="underline-one">Главная</a>
+    <a href="/cars" class="underline-one">Автомобили</a>
+</header>
+<h1>Форма редактирования карточки тех. осмотра</h1>
+<form th:method="POST" th:action="@{/techins/edit/{id}(id=${techInsForm.getId()})}" th:object="${techInsForm}" enctype="multipart/form-data">
+    <label for="carsModel">Выберите автомобиль: </label>
+    <p></p>
+    <select class="field" name="carsModel" th:field="*{carsModel}" id="carsModel">
+        <div th:each="element : ${carsModel}">
+            <option th:text="${element.getStateNumber()}" th:value="${element.getId()}">
+        </div>
+    </select>
+    <p><label for="one">Номер карты: </label></p>
+    <input type="text" th:field="*{cardNumber}" id="one">
+    <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></div>
+
+    <p><label for="two">Дата тех. осмотра: </label></p>
+    <input type="date" th:field="*{dateInspections}" id="two">
+    <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('dateInspections')}" th:errors="*{dateInspections}"></div>
+
+    <p><label for="three">Замечания: </label></p>
+    <input type="text" th:field="*{comments}" id="three">
+
+    <p></p>
+    <div class="incorrectFieldForm" style="color: red; font-size: 25px; text-align: center" th:text="${error}"></div>
+
+    <div class="keysblock">
+        <input type="submit" value="Сохранить" class="key">
+        <a href="/techins" class="link">Назад</a>
+        <p></p>
+    </div>
+</form>
+</body>
+</html>
