@@ -2,9 +2,6 @@ package com.example.carpark.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.data.repository.NoRepositoryBean;
-
-import java.time.Year;
 import java.util.List;
 
 @Entity
@@ -32,7 +29,6 @@ public class CarsModel {
     private String registerDate;
     @OneToMany(mappedBy = "carsModel", fetch = FetchType.EAGER)
     private List<TechInspectionsModel> techInspectionsModels;
-
     @Transient
     int carOlder;
     @Transient
@@ -40,15 +36,6 @@ public class CarsModel {
     @Transient
     int yearResult;
 
-
-    public CarsModel(int id, String productionDate, String model, String stateNumber, String registerDate, List<TechInspectionsModel> techInspectionsModels) {
-        this.id = id;
-        this.productionDate = productionDate;
-        this.model = model;
-        this.stateNumber = stateNumber;
-        this.registerDate = registerDate;
-        this.techInspectionsModels = techInspectionsModels;
-    }
 
     public CarsModel(String productionDate, String model, String stateNumber, String registerDate) {
         this.productionDate = productionDate;
@@ -105,51 +92,10 @@ public class CarsModel {
         return techInspectionsModels;
     }
 
+
     public void setTechInspectionsModels(List<TechInspectionsModel> techInspectionsModels) {
         this.techInspectionsModels = techInspectionsModels;
     }
-
-    @Override
-    public String toString() {
-        return stateNumber;
-    }
-
-    public int CarsOld() {
-        yearResult = Year.now().getValue() - Integer.parseInt(productionDate);
-        carOlder=0;
-        if (yearResult > 3){
-            carOlder++;
-        }
-        return carOlder;
-    }
-
-    public int CarsYoung() {
-        carYounger=0;
-        yearResult = Year.now().getValue() - Integer.parseInt(productionDate);
-        if (yearResult < 3){
-            carYounger++;
-        }
-        return carYounger;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-//+carYounger
-//carYounger++;
-//        return carYounger;
-
-//    for (String car : countries) {
-//        System.out.println(country);
-//    }
 
     public int getCarOlder() {
         return carOlder;
@@ -174,4 +120,10 @@ public class CarsModel {
     public void setYearResult(int yearResult) {
         this.yearResult = yearResult;
     }
+
+    @Override
+    public String toString() {
+        return stateNumber;
+    }
+
 }

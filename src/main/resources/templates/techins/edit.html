@@ -2,43 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/logo/logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
     <title>Автопарк</title>
 </head>
 <body>
-<header>
-    <a href="/" class="underline-one">Главная</a>
-    <a href="/cars" class="underline-one">Автомобили</a>
-</header>
-<h1>Форма редактирования карточки тех. осмотра</h1>
-<form th:method="POST" th:action="@{/techins/edit/{id}(id=${techInsForm.getId()})}" th:object="${techInsForm}" enctype="multipart/form-data">
-    <label for="carsModel">Выберите автомобиль: </label>
-    <p></p>
-    <select class="field" name="carsModel" th:field="*{carsModel}" id="carsModel">
-        <div th:each="element : ${carsModel}">
-            <option th:text="${element.getStateNumber()}" th:value="${element.getId()}">
-        </div>
-    </select>
-    <p><label for="one">Номер карты: </label></p>
-    <input type="text" th:field="*{cardNumber}" id="one">
-    <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></div>
+<div class="row g-3 form-eight">
+    <h3>Форма редактирования карточки тех. осмотра</h3>
+    <form class="row g-3 form-nine" th:method="POST" th:action="@{/techins/edit/{id}(id=${techInsForm.getId()})}" th:object="${techInsForm}" enctype="multipart/form-data">
+        <label for="carsModel">Выберите автомобиль: </label>
+        <select class = "input-one" name="carsModel" th:field="*{carsModel}" id="carsModel">
+            <div th:each="element : ${carsModel}">
+                <option th:text="${element.getStateNumber()}" th:value="${element.getId()}">
+            </div>
+        </select>
+        <label for="one">Номер карты: </label>
+        <input class = "input-one" type="text" th:field="*{cardNumber}" id="one">
+        <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></div>
 
-    <p><label for="two">Дата тех. осмотра: </label></p>
-    <input type="date" th:field="*{dateInspections}" id="two">
-    <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('dateInspections')}" th:errors="*{dateInspections}"></div>
+        <label for="two">Дата тех. осмотра: </label>
+        <input class = "input-one" type="date" th:field="*{dateInspections}" id="two">
+        <div class="incorrectFieldForm" style="color: red; background: white" th:if="${#fields.hasErrors('dateInspections')}" th:errors="*{dateInspections}"></div>
 
-    <p><label for="three">Замечания: </label></p>
-    <input type="text" th:field="*{comments}" id="three">
+        <label for="three">Замечания: </label>
+        <input class = "input-one" type="text" th:field="*{comments}" id="three">
 
-    <p></p>
-    <div class="incorrectFieldForm" style="color: red; font-size: 25px; text-align: center" th:text="${error}"></div>
-
-    <div class="keysblock">
-        <input type="submit" value="Сохранить" class="key">
-        <a href="/techins" class="link">Назад</a>
         <p></p>
-    </div>
+        <div class="incorrectFieldForm" style="color: red; font-size: 25px; text-align: center" th:text="${error}"></div>
+        <div class="col-12 btn-block">
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+            <a type="button" class="btn btn-danger btn-user" href="/cars">Назад</a>
+        </div>
 </form>
+</div>
 </body>
 </html>

@@ -2,29 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/logo/logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
     <title>Автопарк</title>
 </head>
 <body>
-<header>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" disabled href="/" style="color:grey" aria-disabled="true">Автопарк</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" style="color:white" href="#">Автомобили</a>
 
-    <a class="key" th:href="@{/cars/add}">Добавить</a>
-    <a class="key" th:href="@{/cars/report}">Отчёт</a>
-    <a href="/techins" class="underline-one">Тех. осмотры</a>
-
-</header>
-<h1>Автомобили</h1>
-<div th:each="car : ${carForm}" id="carList">
-    <a th:href="@{/cars/{id}(id=${car.getId()})}" th:text="${car.getModel()+' '+car.getProductionDate()+' '+car.getStateNumber()+' '+car.getRegisterDate()}"></a>
-
-    <hr class="hr-vertical-gradient">
-    <div class="keysblock">
-        <a class="key" th:href="@{/cars/edit/{id}(id=${car.getId()})}">Редактировать</a>
-        <a class="key" th:href="@{/cars/delete/{id}(id=${car.getId()})}">Удалить</a>
+            </div>
+        </div>
     </div>
-    <hr class="hr-vertical-gradient">
+</nav>
 
-</div>
+<form class="row g-3 form-one">
+    <h1>Автомобили</h1>
+    <div class="col-12">
+        <a type="submit" class="btn btn-primary" href="/cars/add">Добавить</a>
+        <a type="submit" class="btn btn-primary" href="/cars/report">Отчёт</a>
+        <button type="button" class="btn btn-success" onclick="document.location='/techins'">Тех. осмотры</button>
+    </div>
+
+    <div class="col-12 form-three">
+        <p class="label-one">List</p>
+    </div>
+
+    <table class="form-two">
+        <tr><td>Модель</td><td>Год выпуска</td><td>Гос. номер</td><td>Дата постановки на учёт</td><td></td></tr>
+        <tr>
+            <td><div th:each="car : ${carForm}" class="col-12">
+                <a th:href="@{/cars/{id}(id=${car.getId()})}" th:text="${car.getModel()}"></a></div></td>
+
+            <td><div th:each="car : ${carForm}" class="col-12">
+                <p th:text="${car.getProductionDate()}"></p></div></td>
+
+            <td><div th:each="car : ${carForm}" class="col-12">
+                <p th:text="${car.getStateNumber()}"></p></div></td>
+
+            <td><div th:each="car : ${carForm}" class="col-12">
+                <p th:text="${car.getRegisterDate()}"></p></div></td>
+
+            <td><div th:each="car : ${carForm}" class="col-12">
+                <a type="submit" class="btn btn-primary form-six" th:href="@{/cars/edit/{id}(id=${car.getId()})}">Редактировать</a>
+                <a type="button" class="btn btn-danger form-seven" th:href="@{/cars/delete/{id}(id=${car.getId()})}">Удалить</a>
+
+<!--                    <div th:each="tech : ${techInsForm}" th:if="${car.getId() == tech.getCarsModel().getId()}" class="col-12">-->
+                <a type="button" class="btn btn-success form-ten" th:href="@{/techins/{id}(id=${car.getId()})}">Тех. осмотры</a>
+                    </div></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

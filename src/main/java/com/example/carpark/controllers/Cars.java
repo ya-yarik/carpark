@@ -1,8 +1,5 @@
 package com.example.carpark.controllers;
-
 import com.example.carpark.models.CarsModel;
-import com.example.carpark.repositories.CarsRepository;
-import com.example.carpark.repositories.TechInspectionsRepository;
 import com.example.carpark.services.CarsServices;
 import com.example.carpark.services.TechInspectionsServices;
 import jakarta.validation.Valid;
@@ -12,26 +9,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
+import java.time.Year;
 
 @Controller
 @RequestMapping("/")
 public class Cars {
     private final CarsServices carsServices;
-    private final CarsRepository carsRepository;
     private final TechInspectionsServices techInspectionsServices;
-    private final TechInspectionsRepository techInspectionsRepository;
 
     @Autowired
-    public Cars(CarsServices carsServices, CarsRepository carsRepository, TechInspectionsServices techInspectionsServices, TechInspectionsRepository techInspectionsRepository) {
+    public Cars(CarsServices carsServices, TechInspectionsServices techInspectionsServices) {
         this.carsServices = carsServices;
-        this.carsRepository = carsRepository;
         this.techInspectionsServices = techInspectionsServices;
-        this.techInspectionsRepository = techInspectionsRepository;
     }
 
     @GetMapping("")
@@ -42,6 +31,7 @@ public class Cars {
     @GetMapping("/cars")
     public String allCars(Model model) {
         model.addAttribute("carForm", carsServices.getAllCars());
+        model.addAttribute("techInsForm", techInspectionsServices.getAllTechInspections());
         return "cars/cars";
     }
 
@@ -61,9 +51,9 @@ public class Cars {
         for (CarsModel carsModel :
                 carsServices.getAllCars()) {
             if (carsModel.getStateNumber().equals(car.getStateNumber())) {
-                model.addAttribute("error", "Машина с таким госномером уже существует");
+                model.addAttribute("error", "Машина с таким гос.номером уже существует");
 
-                ObjectError error = new ObjectError("error", "Машина с таким госномером уже существует");
+                ObjectError error = new ObjectError("error", "Машина с таким гос.номером уже существует");
                 scan.addError(error);
                 return "cars/add";
 
@@ -89,19 +79,10 @@ public class Cars {
     public String editCar(@ModelAttribute("carForm") @Valid CarsModel car, BindingResult scanEdit, @PathVariable("id") int id, Model model) {
 
         if (scanEdit.hasErrors()) {
+            model.addAttribute("error", "Ошибка при заполнении");
+            ObjectError error = new ObjectError("error", "Ошибка при заполнении");
+            scanEdit.addError(error);
             return "cars/edit";
-        }
-
-        for (CarsModel carsModel :
-                carsServices.getAllCars()) {
-            if (carsModel.getStateNumber().equals(car.getStateNumber())) {
-                model.addAttribute("error", "Машина с таким госномером уже существует");
-
-                ObjectError error = new ObjectError("error", "Машина с таким госномером уже существует");
-                scanEdit.addError(error);
-                return "cars/edit";
-
-            }
         }
         carsServices.editCar(id, car);
         return "redirect:/cars/" + id;
@@ -115,9 +96,31 @@ public class Cars {
 
     @GetMapping("cars/report")
     public String report(Model model) {
-        model.addAttribute("reportForm", carsServices.getAllCars());
+        int carOlder = 0;
+        int carYounger=0;
+        for (CarsModel cars : carsServices.getAllCars()) {
+
+            int yearResult = Year.now().getValue() - Integer.parseInt(cars.getProductionDate());
+
+            if (yearResult > 3) {
+                carOlder++;
+            }
+            if (yearResult < 3){
+                carYounger++;
+            }
+        }
+        model.addAttribute("reportForm", carOlder);
+        model.addAttribute("reportFormTwo", carYounger);
         return "cars/report";
     }
 
+    @GetMapping("/cars/list")
+    public String carsPage() {
+        return "cars/api-cars";
+    }
 
+    @GetMapping("/techins/list")
+    public String techinsPage() {
+        return "techins/api-techins";
+    }
 }

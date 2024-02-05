@@ -1,33 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/logo/logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <link href="/static/styles/style.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
     <title>Автопарк</title>
 </head>
 <body>
-<header>
-    <a class="key" th:href="@{/}">Главная</a>
-    <a class="key" th:href="@{/techins/add}">Добавить</a>
-    <a href="/cars" class="underline-one">Автомобили</a>
-</header>
-<form class="staticForm">
-    <p><u>Номер тех. карты: </u><nobr th:text="' '+${techInsForm.getCardNumber()}"></nobr></p>
-    <p><u>Дата тех. осмотра: </u><nobr th:text="' '+${techInsForm.getDateInspections()}"></nobr></p>
-    <p><u>Замечания: </u><nobr th:text="' '+${techInsForm.getComments()}"></nobr></p>
-    <p><u>Автомобиль: </u><nobr th:text="' '+${techInsForm.getCarsModel()}"></nobr></p>
 
-    <hr class="hr-vertical-gradient">
+<nav class="navbar navbar-expand-lg navbar-custom-index">
+    <div class="container-fluid">
+        <a class="navbar-brand" disabled href="/" style="color:grey" aria-disabled="true">Автопарк</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" style="color:white" href="/cars">Автомобили</a>
+                <a class="nav-link active" aria-current="page" style="color:white" href="/techins">Тех. осмотры</a>
+            </div>
+        </div>
+    </div>
+</nav>
 
-    <p></p>
+<div class="h3Center"><h3 th:text="'Тех. осмотры - '+${carForm.getModel()+' '+carForm.getStateNumber()}"></h3></div>
 
+<div th:each="tech : ${techInsForm}" th:if="${carForm.getId() == tech.getCarsModel().getId()}" class="row g-3 form-eight">
+    <p><u>Номер тех. карты: </u><nobr th:text="' '+${tech.getCardNumber()}"></nobr></p>
+    <p><u>Дата тех. осмотра: </u><nobr th:text="' '+${tech.getDateInspections()}"></nobr></p>
+    <p><u>Замечания: </u><nobr th:text="' '+${tech.getComments()}"></nobr></p>
+    <p><u>Автомобиль: </u><nobr th:text="' '+${tech.getCarsModel()}"></nobr></p>
     <div class="keysblock">
-        <a th:href="@{/techins/edit/{id}(id=${techInsForm.getId()})}" class="link">Редактировать данные</a>
-        <a th:href="@{/techins/delete/{id}(id=${techInsForm.getId()})}" class="link">Удалить данные</a>
-        <a href="/techins" class="link">Отмена</a>
+        <a th:href="@{/techins/edit/{id}(id=${tech.getId()})}" class="btn btn-primary">Редактировать</a>
+        <a th:href="@{/techins/delete/{id}(id=${tech.getId()})}" class="btn btn-danger btn-user">Удалить</a>
+        <a href="/techins" class="btn btn-success">Отмена</a>
         <p></p>
     </div>
-</form>
+    </div>
+    <hr class="hr-vertical-gradient">
+
 </body>
 </html>

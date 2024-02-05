@@ -2,27 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/logo/logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
     <title>Автопарк</title>
 </head>
 <body>
-<header>
-</header>
-<h1>Отчёт</h1>
-<div th:each="car : ${reportForm}" id="carList">
-    <p><u>Всего автомобилей: </u><a th:href="@{/cars/report}" th:text="${car.CarsOld()+car.CarsYoung()}"></a></p>
-    <p><u>Из них старше 3 лет: </u><a th:href="@{/cars/report}" th:text="${car.CarsOld()}"></a></p>
-    <p><u>Новее 3 лет: </u><a th:href="@{/cars/report}" th:text="${car.CarsYoung()}"></a></p>
-</div>
-    <hr class="hr-vertical-gradient">
 
-    <p></p>
-
-    <div class="keysblock">
-        <a href="/cars" class="link">Назад</a>
-        <p></p>
+<form class="row g-3 form-four">
+    <h1>Отчёт</h1>
+    <div id="carList" class="col-12 form-five">
+        <p class="withoutWrap" th:href="@{/cars/report}" th:text="${'Всего автомобилей: '}+${reportFormTwo+reportForm}"></p>
+        <br>
+        <p th:href="@{/cars/report}" th:object="${reportForm}" th:text="${'Из них старше 3 лет: '+reportForm}"></p>
+        <br>
+        <p th:href="@{/cars/report}" th:object="${reportFormTwo}" th:text="${'Новее 3 лет: '+ reportFormTwo}"></p>
     </div>
-
+    <div class="col-12 btn-block">
+        <a type="button" class="btn btn-danger btn-user" href="/cars">Назад</a>
+    </div>
+</form>
 </body>
 </html>

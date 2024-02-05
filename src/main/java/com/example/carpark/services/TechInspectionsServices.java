@@ -5,7 +5,6 @@ import com.example.carpark.repositories.TechInspectionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +34,8 @@ public class TechInspectionsServices {
     public void deleteTechInspection(int id){
         techInspectionsRepository.deleteById(id);
     }
-    public TechInspectionsModel getTechInspectionId(int id){
+
+    public TechInspectionsModel getTechInspectionId(int id) {
         Optional<TechInspectionsModel> thatTechIns = techInspectionsRepository.findById(id);
         return thatTechIns.orElse(null);
     }

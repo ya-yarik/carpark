@@ -2,33 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/logo/logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
     <title>Автопарк</title>
 </head>
 <body>
-<header>
-    <a class="key" th:href="@{/cars/add}">Добавить</a>
-    <a class="key" th:href="@{/cars/report}">Отчёт</a>
-    <a href="/techins" class="underline-one">Тех. осмотры</a>
-</header>
-<form class="staticForm">
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" disabled href="/" style="color:grey" aria-disabled="true">Автопарк</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" style="color:white" href="/cars">Автомобили</a>
+                <a class="nav-link active" aria-current="page" style="color:white" href="/techins">Тех. осмотры</a>
+                <a class="nav-link active" aria-current="page" style="color:white" href="/cars/add">Добавить авто</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<form class="form-four">
     <p><u>Модель:</u><nobr th:text="' '+${carForm.getModel()}"></nobr></p>
     <p><u>Год выпуска:</u><nobr th:text="' '+${carForm.getProductionDate()}"></nobr></p>
     <p><u>Гос. номер:</u><nobr th:text="' '+${carForm.getStateNumber()}"></nobr></p>
     <p><u>Дата постановки на учёт:</u><nobr th:text="' '+${carForm.getRegisterDate()}"></nobr></p>
-    <p><u>Техосмотры:</u><nobr th:text="' '+${carForm.getTechInspectionsModels()}"></nobr></p>
+    <u>Техосмотры:</u><p th:text="' '+${carForm.getTechInspectionsModels()}"></p>
 
-        <hr class="hr-vertical-gradient">
-
+    <hr class="hr-vertical-gradient">
+    <p></p>
+    <div class="col-12 btn-block">
+        <a th:href="@{/cars/edit/{id}(id=${carForm.getId()})}" class="btn btn-primary form-six" type="button" >Редактировать</a>
+        <a th:href="@{/cars/delete/{id}(id=${carForm.getId()})}" type="button" class="btn btn-danger form-seven">Удалить</a>
+        <a href="/cars" type="button" class="btn btn-success form-seven">Отмена</a>
         <p></p>
-
-        <div class="keysblock">
-            <a th:href="@{/cars/edit/{id}(id=${carForm.getId()})}" class="link">Редактировать</a>
-            <a th:href="@{/cars/delete/{id}(id=${carForm.getId()})}" class="link">Удалить</a>
-            <a href="/cars" class="link">Отмена</a>
-            <p></p>
-        </div>
+    </div>
 </form>
 </body>
 </html>

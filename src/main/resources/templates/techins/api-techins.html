@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/logo/logo.png" rel="shortcut icon">
+    <link href="/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="/static/styles/bootstrap.rtl.css" rel="stylesheet">
+    <link href="/static/styles/custom.css" rel="stylesheet">
+    <script defer src="/static/js/bootstrap.bundle.js"></script>
+    <script defer src="/static/js/bootstrap.js"></script>
+    <meta charset="UTF-8">
+    <script src="webjars/vue/3.4.15/dist/vue.cjs.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.cjs.prod.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.esm-browser.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.esm-browser.prod.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.esm-bundler.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.global.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.global.prod.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.runtime.esm-browser.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.runtime.esm-browser.prod.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.runtime.esm-bundler.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.runtime.global.js"></script>
+    <script src="webjars/vue/3.4.15/dist/vue.runtime.global.prod.js"></script>
+    <script src="webjars/axios/1.6.5/dist/axios.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<template v-for="techins in techins">
+        <td>{{ techins.id }}</td>
+        <td>{{ techins.cardNumber }}</td>
+        <td>{{ techins.dateInspections }}</td>
+        <td>{{ techins.registerDate }}</td>
+        <td>{{ techins.comments}}</td>
+</template>
+<script>
+    var app = new Vue({
+        el: '#techins',
+        data() {
+            return {
+                techins: null
+            }
+        },
+        mounted(){
+            axios
+                .get("/api/techins/list")
+                .then(response => (this.techins = response.data))
+        },
+    })
+</script>
+</body>
+</html>

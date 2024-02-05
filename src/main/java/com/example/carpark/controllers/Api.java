@@ -89,4 +89,12 @@ public class Api {
         TechInspectionErrorResponse response = new TechInspectionErrorResponse("Не удалось найти данные тех. осмотра по данному id");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+    @GetMapping("/cars/list")
+    public List<CarsModel> listCars() {
+        return carsRepository.findAll();
+    }
+    @GetMapping("/techins/list")
+    public List<TechInspectionsModel> listTechins() {
+        return techInspectionsRepository.findAll();
+    }
 }

@@ -2,9 +2,6 @@ package com.example.carpark.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
-import java.util.Date;
 
 @Entity(name="tech_inspections")
 public class TechInspectionsModel {
@@ -24,14 +21,6 @@ public class TechInspectionsModel {
     private String dateInspections;
     @Column(name = "description")
     private String comments;
-
-    public TechInspectionsModel(int id, String cardNumber, String dateInspections, String comments, CarsModel carsModel) {
-        this.id = id;
-        this.cardNumber = cardNumber;
-        this.dateInspections = dateInspections;
-        this.comments = comments;
-        this.carsModel = carsModel;
-    }
 
     public TechInspectionsModel(String cardNumber, String dateInspections, String comments, CarsModel carsModel) {
         this.cardNumber = cardNumber;

@@ -2,7 +2,6 @@ package com.example.carpark.controllers;
 import com.example.carpark.models.CarsModel;
 import com.example.carpark.models.TechInspectionsModel;
 import com.example.carpark.repositories.CarsRepository;
-import com.example.carpark.repositories.TechInspectionsRepository;
 import com.example.carpark.services.CarsServices;
 import com.example.carpark.services.TechInspectionsServices;
 import jakarta.validation.Valid;
@@ -20,14 +19,12 @@ public class TechInspections {
     private final CarsServices carsServices;
     private final CarsRepository carsRepository;
     private final TechInspectionsServices techInspectionsServices;
-    private final TechInspectionsRepository techInspectionsRepository;
 
     @Autowired
-    public TechInspections(CarsServices carsServices, CarsRepository carsRepository, TechInspectionsServices techInspectionsServices, TechInspectionsRepository techInspectionsRepository) {
+    public TechInspections(CarsServices carsServices, CarsRepository carsRepository, TechInspectionsServices techInspectionsServices) {
         this.carsServices = carsServices;
         this.carsRepository = carsRepository;
         this.techInspectionsServices = techInspectionsServices;
-        this.techInspectionsRepository = techInspectionsRepository;
     }
 
     @GetMapping("")
@@ -46,7 +43,6 @@ public class TechInspections {
     @PostMapping("/add")
     public String addTechInspection(@ModelAttribute("techInsForm") @Valid TechInspectionsModel techIns, BindingResult scan, Model model,  @RequestParam("carsModel") int carsModel) {
         CarsModel carsModel1 = (CarsModel) carsRepository.findById(carsModel).orElseThrow();
-
 
         if (scan.hasErrors()) {
             model.addAttribute("carsModel", carsRepository.findAll());
@@ -70,7 +66,8 @@ public class TechInspections {
 
     @GetMapping("/{id}")
     public String aboutTechInspection(Model model, @PathVariable("id") int id) {
-        model.addAttribute("techInsForm", techInspectionsServices.getTechInspectionId(id));
+        model.addAttribute("carForm", carsServices.getCarId(id));
+        model.addAttribute("techInsForm", techInspectionsServices.getAllTechInspections());
         return "techins/selection";
     }
 
@@ -109,5 +106,4 @@ public class TechInspections {
         techInspectionsServices.deleteTechInspection(id);
         return "redirect:/techins";
     }
-
 }
