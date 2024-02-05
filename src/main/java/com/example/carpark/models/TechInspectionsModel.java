@@ -33,6 +33,13 @@ public class TechInspectionsModel {
         this.carsModel = carsModel;
     }
 
+    public TechInspectionsModel(String cardNumber, String dateInspections, String comments, CarsModel carsModel) {
+        this.cardNumber = cardNumber;
+        this.dateInspections = dateInspections;
+        this.comments = comments;
+        this.carsModel = carsModel;
+    }
+
     public TechInspectionsModel() {
     }
 

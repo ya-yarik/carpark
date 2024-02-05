@@ -50,6 +50,13 @@ public class CarsModel {
         this.techInspectionsModels = techInspectionsModels;
     }
 
+    public CarsModel(String productionDate, String model, String stateNumber, String registerDate) {
+        this.productionDate = productionDate;
+        this.model = model;
+        this.stateNumber = stateNumber;
+        this.registerDate = registerDate;
+    }
+
     public CarsModel() {
 
     }
