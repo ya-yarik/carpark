@@ -1,12 +1,10 @@
 package com.example.carpark.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
+import org.springframework.data.repository.NoRepositoryBean;
+
 import java.time.Year;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -34,10 +32,14 @@ public class CarsModel {
     private String registerDate;
     @OneToMany(mappedBy = "carsModel", fetch = FetchType.EAGER)
     private List<TechInspectionsModel> techInspectionsModels;
-//    private int carOlder;
-//    private int carYounger;
-//    private int yearResult;
-//    int carYear;
+
+    @Transient
+    int carOlder;
+    @Transient
+    int carYounger;
+    @Transient
+    int yearResult;
+
 
     public CarsModel(int id, String productionDate, String model, String stateNumber, String registerDate, List<TechInspectionsModel> techInspectionsModels) {
         this.id = id;
@@ -51,10 +53,6 @@ public class CarsModel {
     public CarsModel() {
 
     }
-
-//    public CarsModel() {
-//        carYear = productionDate.getYear();
-//    }
 
     public int getId() {
         return id;
@@ -109,16 +107,64 @@ public class CarsModel {
         return stateNumber;
     }
 
-    //    public void CarsYear(int carYear) {
-//        int nowYear = Year.now().getValue();
-//        yearResult=nowYear-carYear;
-//        if (yearResult > 3) {
-//            carOlder=carOlder++;
-//            }
-//        else {
-//            carYounger=carYounger++;
-//        }
-//
+    public int CarsOld() {
+        yearResult = Year.now().getValue() - Integer.parseInt(productionDate);
+        carOlder=0;
+        if (yearResult > 3){
+            carOlder++;
+        }
+        return carOlder;
+    }
+
+    public int CarsYoung() {
+        carYounger=0;
+        yearResult = Year.now().getValue() - Integer.parseInt(productionDate);
+        if (yearResult < 3){
+            carYounger++;
+        }
+        return carYounger;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+//+carYounger
+//carYounger++;
+//        return carYounger;
+
+//    for (String car : countries) {
+//        System.out.println(country);
 //    }
 
+    public int getCarOlder() {
+        return carOlder;
+    }
+
+    public void setCarOlder(int carOlder) {
+        this.carOlder = carOlder;
+    }
+
+    public int getCarYounger() {
+        return carYounger;
+    }
+
+    public void setCarYounger(int carYounger) {
+        this.carYounger = carYounger;
+    }
+
+    public int getYearResult() {
+        return yearResult;
+    }
+
+    public void setYearResult(int yearResult) {
+        this.yearResult = yearResult;
+    }
 }

@@ -113,4 +113,11 @@ public class Cars {
         return "redirect:/cars";
     }
 
+    @GetMapping("cars/report")
+    public String report(Model model) {
+        model.addAttribute("reportForm", carsServices.getAllCars());
+        return "cars/report";
+    }
+
+
 }
